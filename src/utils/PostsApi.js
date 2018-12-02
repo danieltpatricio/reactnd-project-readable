@@ -1,21 +1,16 @@
-import * as ReadableApi from './ReadableApi';
-
-const api = ReadableApi.api
-const headers = ReadableApi.headers
-
+import { api, headers } from './ConfigApi';
 
 // GET /:category/posts (Get all of the posts for a particular category).
 export const getAllPostsCategory = (category) =>
-  fetch(`${api}/${category}/posts`, { headers })
-    .then(res => res.json())
-    .then(data => data.posts)
-    .catch(error => console.log(error))
+fetch(`${api}/${category}/posts`, { headers })
+  .then(res => res.json())
+  .then(data => data.posts)
+  .catch(error => console.log(error))
 
 // GET /posts (Get all of the posts. Useful for the main page when no category is selected). 
 export const getAllPosts = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json())
-    .then(data => data.posts)
     .catch(error => console.log(error))
 
 // POST /posts	(Add a new post).	
@@ -77,7 +72,9 @@ export const editPost = (id,title,body) =>
 // Sets the parentDeleted flag for all child comments to 'true'.
 export const deletePost = (id) =>
   fetch(`${api}/posts/${id}`, {
-    method: 'DELETE', headers
+    method: 'DELETE',
+    headers: headers
   }).then(res => res.json())
     .then(data => data.postId)
     .catch(error => console.log(error)) 
+
