@@ -1,4 +1,4 @@
-import { api, headers } from './ConfigApi';
+import { api, headers } from './ConfigApi'
 
 // GET /:category/posts (Get all of the posts for a particular category).
 export const getAllPostsCategory = (category) =>
@@ -20,7 +20,7 @@ export const getAllPosts = () =>
 // body - [String] 
 // author - [String] 
 // category - Any of the categories listed in categories.js. Feel free to extend this list as you desire.
-export const addPost = (id,timestamp,title,body,author,category) =>
+export const savePost = ( {id, timestamp, title, body, author, category}) =>
   fetch(`${api}/posts`, {
     method: 'POST',
     headers: {
