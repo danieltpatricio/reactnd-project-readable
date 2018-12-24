@@ -1,4 +1,4 @@
-import  {api,headers} from './ConfigApi';
+import  {api,headers} from './ConfigApi'
 
 // GET /categories (Get all of the categories available for the app. List is found in `categories.js`. Feel free to extend this list as you desire.) 
 export const getAllCategories = () => 

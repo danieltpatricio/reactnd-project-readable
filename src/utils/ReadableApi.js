@@ -1,5 +1,5 @@
 import { getAllPosts } from './PostsApi'
-import { getAllCategories } from './CategoriesApi';
+import { getAllCategories } from './CategoriesApi'
 
 export function getInitialData (){
     return Promise.all([

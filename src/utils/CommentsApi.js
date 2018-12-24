@@ -1,4 +1,4 @@
-import ConfigApi from './ConfigApi';
+import ConfigApi from './ConfigApi'
 
 
 
