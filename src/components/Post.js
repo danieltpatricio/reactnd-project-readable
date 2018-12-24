@@ -1,6 +1,6 @@
 import React from 'react'
-import { ListItem,ListItemText,Typography,IconButton} from '@material-ui/core/';
-import { formatDate } from '../utils/FormatItems';
+import { ListItem,ListItemText,Typography,IconButton} from '@material-ui/core/'
+import { formatDate } from '../utils/FormatItems'
 
 export default function Post(props){
     var { item, handleLike } = props
@@ -8,21 +8,19 @@ export default function Post(props){
         <div>
             <ListItem button> 
                 <div>
-                    <ListItemText primary={item.title + ' (' + item.voteScore + ')'} secondary={'@'+item.author } />
+                    <ListItemText primary={item.title + ' (' + item.commentCount + ')'} secondary={'@'+item.author } />
                     <Typography variant="body1">
                         <i className="far fa-calendar-alt"></i> {formatDate(item.timestamp)}
                     </Typography>
-                    <IconButton color="inherit" aria-label="Open drawer" onClick={(e) =>handleLike(e,'upVote')} className="btn-green">
-                        <i className="far fa-thumbs-up"></i>
-                    </IconButton>
-                    <IconButton color="inherit" aria-label="Open drawer" className="btn-red">
-                        <i className="far fa-thumbs-down"></i>
-                    </IconButton>
-                </div>
-                <div>
-                    <IconButton color="inherit" aria-label="Open drawer">
-                        {item.commentCount}  <i className="far fa-comment-dots "></i>
-                    </IconButton>
+                    <div>
+                        <IconButton color="inherit" aria-label="Open drawer" onClick={(e) =>handleLike(e,'upVote')} className="btn-green">
+                            <i className="far fa-thumbs-up"></i>
+                        </IconButton>
+                        <IconButton color="inherit" aria-label="Open drawer" onClick={(e) =>handleLike(e,'downVote')} className="btn-red">
+                            <i className="far fa-thumbs-down"></i>
+                        </IconButton>
+                        <label className={item.voteScore !== 0 ? item.voteScore > 0 ?  "text-green" : "text-red" : ""}>{item.voteScore}</label>  
+                    </div>
                 </div>
             </ListItem>
         </div>

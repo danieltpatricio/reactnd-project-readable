@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { GridList,GridListTile,GridListTileBar,IconButton } from '@material-ui/core/'
 import InfoIcon from '@material-ui/icons/Info'
 
 
 function GridListCategories (props){
-    let categories = Object.values(props.categories);
+    let categories = Object.values(props.categories)
 
     let setImages =(category)=>{
         switch (category){
@@ -25,21 +26,23 @@ function GridListCategories (props){
         <div>
             <GridList cellHeight={300} >
                 {
-                    categories.map(category => (       
+                    categories.map(category => (
                         <GridListTile key={category.path} cols={ categories.length % 2 && categories.indexOf(category) === 0 ? 2 : 1 }>
-                            <img 
-                            src={ setImages(category.name) } 
-                            alt={category.name} 
-                            />
-                            <GridListTileBar
-                            title={category.name}
-                            subtitle={<span>{category.path}</span>}
-                            actionIcon={
-                                <IconButton>
-                                    <InfoIcon />
-                                </IconButton>
-                            }
-                            />
+                            <Link to={`/${category.path}`}>
+                                <img 
+                                src={ setImages(category.name) } 
+                                alt={category.name} 
+                                />
+                                <GridListTileBar
+                                title={category.name}
+                                subtitle={<span>{category.path}</span>}
+                                actionIcon={
+                                    <IconButton>
+                                        <InfoIcon />
+                                    </IconButton>
+                                }
+                                />
+                            </Link>
                         </GridListTile>
                     ))
                 }

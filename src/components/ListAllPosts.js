@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { List,Tabs,Tab } from '@material-ui/core/';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { List,Tabs,Tab } from '@material-ui/core/'
 import { handleTogglePost } from '../actions/posts'
 
-import Post  from './Post';
+import Post  from './Post'
 
 class ListAllPosts extends Component{
 	state = {
@@ -12,13 +12,10 @@ class ListAllPosts extends Component{
 	
 	handleLike = (e,id,hasLiked) =>{
 		e.preventDefault()
-
-
-		const { dispatch, authedUser } = this.props
+		const { dispatch } = this.props
 		dispatch(handleTogglePost({
 			id: id,
 			hasLiked: hasLiked,
-			authedUser
 		}))
 	}
 	  
@@ -29,18 +26,18 @@ class ListAllPosts extends Component{
 	sortList = (posts) =>{
 		switch (this.state.value){
 			case 0 :
-				return posts.sort((a,b)=> b.timestamp - a.timestamp);
+				return posts.sort((a,b)=> b.timestamp - a.timestamp)
 			case 1:
-				return posts.sort((a,b)=> b.commentCount - a.commentCount)
+				return posts.sort((a,b)=> b.voteScore - a.voteScore)
 			default:
-				return posts.sort((a,b)=> b.timestamp - a.timestamp);
+				return posts.sort((a,b)=> b.timestamp - a.timestamp)
 		} 
 		
 	}
 	  
   	render(){
-		let { value } = this.state;
-		let  posts  =  this.sortList(Object.values(this.props.posts));
+		let { value } = this.state
+		let  posts  =  this.sortList(Object.values(this.props.posts))
 		return(
 	  		<div>
 				<Tabs 
@@ -65,7 +62,7 @@ class ListAllPosts extends Component{
   	}
 }
 
-function mapStateToProps ( posts, authedUser ) {
+function mapStateToProps ( posts ) {
   return  posts
 }
   

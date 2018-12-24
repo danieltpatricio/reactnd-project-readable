@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 
-import { AppBar,Toolbar,IconButton,Typography,Drawer,ListItem,ListItemIcon,List,ListItemText } from '@material-ui/core/';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
+import { AppBar,Toolbar,IconButton,Typography,Drawer,ListItem,ListItemIcon,List,ListItemText } from '@material-ui/core/'
+import MenuIcon from '@material-ui/icons/Menu'
+import SearchIcon from '@material-ui/icons/Search'
+import InputBase from '@material-ui/core/InputBase'
 
-import udacity from '../assets/udacity.png';
-import redux from '../assets/redux.png';
-import react from '../assets/react.png';
-
+import udacity from '../assets/udacity.png'
+import redux from '../assets/redux.png'
+import react from '../assets/react.png'
+import Home from '@material-ui/icons/Home'
 
   
 class  TopBar extends Component {
@@ -20,8 +21,8 @@ class  TopBar extends Component {
     toggleDrawer = (open) => () => {
         this.setState({
           open: open,
-        });
-    };
+        })
+    }
 
     setIcons = (category)=>{
         switch (category){
@@ -47,7 +48,7 @@ class  TopBar extends Component {
                         <List>
                             {
                                 categories.map(category =>(
-                                    <ListItem key={category.name} >
+                                    <ListItem key={category.name} button>
                                         <ListItemIcon>
                                             {this.setIcons(category.name)}
                                         </ListItemIcon>
@@ -55,6 +56,14 @@ class  TopBar extends Component {
                                     </ListItem>
                                 )) 
                             }
+                            <NavLink to="/">
+                                <ListItem key="home" button>
+                                    <ListItemIcon>
+                                        <Home />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Home" />
+                                </ListItem>
+                            </NavLink>
                         </List>
                     </div>  
                 </Drawer>
@@ -78,7 +87,7 @@ class  TopBar extends Component {
                 </div>
             </div>
             
-        );
+        )
     }
     
 }
