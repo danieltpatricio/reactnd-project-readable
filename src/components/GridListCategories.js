@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import { GridList,GridListTile,GridListTileBar,IconButton } from '@material-ui/core/'
 import InfoIcon from '@material-ui/icons/Info'
@@ -24,25 +24,27 @@ function GridListCategories (props){
 
     return(
         <div>
+            <div>
+                <h2>Categories:</h2>
+            </div>
             <GridList cellHeight={300} >
                 {
                     categories.map(category => (
                         <GridListTile key={category.path} cols={ categories.length % 2 && categories.indexOf(category) === 0 ? 2 : 1 }>
-                            <Link to={`/${category.path}`}>
+                            <NavLink to={category.path}>
                                 <img 
                                 src={ setImages(category.name) } 
                                 alt={category.name} 
                                 />
                                 <GridListTileBar
                                 title={category.name}
-                                subtitle={<span>{category.path}</span>}
                                 actionIcon={
                                     <IconButton>
                                         <InfoIcon />
                                     </IconButton>
                                 }
                                 />
-                            </Link>
+                            </NavLink>
                         </GridListTile>
                     ))
                 }
