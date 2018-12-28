@@ -6,13 +6,10 @@ import { AppBar,Toolbar,IconButton,Typography,Drawer,ListItem,ListItemIcon,List,
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase'
-
-import udacity from '../assets/udacity.png'
-import redux from '../assets/redux.png'
-import react from '../assets/react.png'
 import Home from '@material-ui/icons/Home'
+import { getIcons } from '../utils/FormatItems'
 
-  
+
 class  TopBar extends Component {
     state = {
         open: false,
@@ -25,16 +22,7 @@ class  TopBar extends Component {
     }
 
     setIcons = (category)=>{
-        switch (category){
-            case 'react':
-                return <img alt={category} className='categories-list-icons' src={react}/>
-            case 'redux':
-                return <img alt={category} className='categories-list-icons' src={redux}/>
-            case 'udacity':
-                return <img alt={category} className='categories-list-icons' src={udacity}/>
-            default:
-                return <h2>Sem Imagem</h2>
-        }
+       
     }
 
     render(){
@@ -50,7 +38,7 @@ class  TopBar extends Component {
                                 categories.map(category =>(
                                     <ListItem key={category.name} button>
                                         <ListItemIcon>
-                                            {this.setIcons(category.name)}
+                                            {getIcons(category.name)}
                                         </ListItemIcon>
                                         <ListItemText primary={category.name} />
                                     </ListItem>
@@ -73,9 +61,11 @@ class  TopBar extends Component {
                             <IconButton color="inherit" aria-label="Open drawer">
                                 <MenuIcon onClick={this.toggleDrawer(true)}/>
                             </IconButton>
-                            <Typography variant="h6" color="inherit" noWrap>
-                            {title}
-                            </Typography>
+                            <NavLink to='/' >
+                                <Typography variant="h6" color="inherit" noWrap>
+                                {title}
+                                </Typography>
+                            </NavLink>
                             <div className='search'>
                                 <SearchIcon className='search-icon'/>
                                 <InputBase
