@@ -8,17 +8,18 @@ import Main from './Main'
 import FloatButton from './FloatButton'
 import TopBar from './TopBar'
 import NewPost from './NewPost'
-import ListCategoryPosts from './ListCategoryPosts'
-
+import ListPosts from './ListPosts'
+import PostPage from './PostPage'
 
 import LoadingBar from 'react-redux-loading'
-import { BrowserRouter,Route } from 'react-router-dom'
+import { BrowserRouter,Route, Switch } from 'react-router-dom'
 
 
 class App extends Component {
   componentDidMount(){
     this.props.dispatch(handleInitialData())
   }
+
   render(){
     return(
     <div className="App">
@@ -31,8 +32,11 @@ class App extends Component {
             ? null
             : <div>
                 <Route path='/' exact component={Main}/>
-                {/* <Route path='/:category/' exact component={ListCategoryPosts}/> */}
-                <Route path='/new' exact component={NewPost}/>
+                <Switch>
+                  <Route path='/new' exact component={NewPost}/>
+                  <Route path='/:category/' exact component={ListPosts}/>
+                </Switch>
+                <Route path='/:category/:id' exact component={PostPage}/>
                 <FloatButton />
               </div>
           }
