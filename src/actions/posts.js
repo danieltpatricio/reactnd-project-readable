@@ -1,9 +1,25 @@
-import { votePost, getAllPostsCategory, savePost} from '../utils/PostsApi'
+import { votePost, savePost } from '../utils/PostsApi'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
 export const RECIVE_POSTS = 'RECIVE_POSTS'
+export const RECIVE_POST = 'RECIVE_POST'
 export const ADD_POST = 'ADD_POST'
 export const TOGGLE_POST = 'TOGGLE_POST'
+export const RECIVE_POSTS_CATEGORY = 'RECIVE_POSTS_CATEGORY'
+
+export function recivePosts(posts) {
+    return {
+        type: RECIVE_POSTS,
+        posts
+    }
+}
+
+export function recivePost(post) {
+    return {
+        type: RECIVE_POST,
+        post
+    }
+}
 
 function addPost(post) {
     return {
@@ -13,24 +29,12 @@ function addPost(post) {
 }
 
 export function handleAddPost(post){
-    return (dispatch, getState)=>{
-        const { authedUser } = getState()
-
+    return (dispatch)=>{
         dispatch(showLoading)
-
         return savePost(post)
-        .then ((post) => dispatch(post))
+        .then ( (post) => dispatch(addPost(post)) )
         .then(()=> dispatch(hideLoading))
     }
-}
-
-
-export function recivePosts(posts) {
-    return {
-        type: RECIVE_POSTS,
-        posts
-    }
-    
 }
 
 function togglePost({id, hasLiked}) {
@@ -52,3 +56,4 @@ export function handleTogglePost(info) {
         })
     }
 }
+ 

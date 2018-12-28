@@ -6,12 +6,18 @@ import { TextField, FormControl, InputLabel, Select, OutlinedInput  } from '@mat
 class NewPost extends Component{
     state = {
         body: '',
-        title: ''
+        title: '',
+        category: ''
+    }
+
+    handleChangeCategory = (e) =>{
+        const category = e.target.value
+        this.setState((c) => c.category = category)
     }
 
     handleChangeBody = (e) =>{
         const body = e.target.value
-        this.setState((c) => c.body = body)
+        body.length <= 1000 && this.setState((c) => c.body = body)
     }
 
     handleChangeTitle = (e) =>{
@@ -20,32 +26,35 @@ class NewPost extends Component{
     }
 
     handleSubmit = (e) =>{
-        console.log(e)
         e.preventDefault()
-        const { body, title } = this.state
-        const { dispatch } = this.props
+        const { body, title, category } = this.state
+        const { dispatch,authedUser } = this.props
         dispatch(handleAddPost({
-            // timestamp:,
+            timestamp:Date.now(),
             title,
             body ,
-            // author: authedUser,
-            // category
+            author: authedUser,
+            category
         }))
 
-        this.setState({ body:'' })
+        this.setState({
+            body: '',
+            title: '',
+            category: ''
+        })
 
     }
 
     render(){
-        let { body, title } = this.state
-        let  categories   = Object.values(this.props.categories)
-        const postLeft = 500 - body.length
+        let { body, title, category } = this.state
+        let  categories   = this.props.categories
+        const postLeft = 1000 - body.length
 
         return(
             <div>
                 <h2>Compose New Post:</h2>
                 <form onSubmit={this.handleSubmit}>  
-                    <FormControl variant="outlined">
+                    <FormControl variant="outlined" className="select-category">
                         <InputLabel
                             ref={ref => {
                             this.InputLabelRef = ref;
@@ -56,13 +65,14 @@ class NewPost extends Component{
                         </InputLabel>
                         <Select
                             native
+                            onChange={this.handleChangeCategory}
+                            value={category}
                             labelWidth={70}
                             input={
                             <OutlinedInput
                                 name="categories"
                             />
                             }
-
                         >
                             <option value="" />
                             {
@@ -71,47 +81,54 @@ class NewPost extends Component{
                                 })
                             }
                         </Select>
-                    </FormControl>  
-                    <TextField
-                        label="Title"
-                        name="title"
-                        value={title}
-                        onChange={this.handleChangeTitle}
-                        fullWidth
-                        margin="normal"
-                        variant="outlined"
-                    />
-                    <TextField
-                        label="Body"
-                        name="Body"
-                        value={body}
-                        onChange={this.handleChangeBody}
-                        multiline
-                        rows="10"
-                        fullWidth
-                        rowsMax="5"
-                        margin="normal"
-                        variant="outlined"
-                    />
-                    
-                    <h2>{postLeft}</h2>
+                    </FormControl>
+                    <FormControl fullWidth>
+                        <TextField
+                            label="Title"
+                            name="title"
+                            value={title}
+                            onChange={this.handleChangeTitle}
+                            variant="outlined"
+                            margin="normal"
+                        
+                        />
+                        
+                        <TextField
+                            label="Body"
+                            name="Body"
+                            value={body}
+                            onChange={this.handleChangeBody}
+                            multiline
+                            rows="6"
+                            rowsMax="6"
+                            variant="outlined"
+                            margin="normal"
+                        
+                        />
+                        { (body !== '' &&  postLeft < 50 && postLeft > 0) &&
+                            <span className="post-length">{postLeft}</span>
+                        }
+                    </FormControl> 
 
                     <button 
                     className="btn"
                     type="submit"
-                    disabled ={ body === ''}
+                    disabled ={ body === '' || category === '' || title === ''}
                     >
                     Post
                     </button>
                 </form>
-                
             </div>
         )
     }
 }
 
-function mapStateToProps ( categories ) {
-    return categories 
+function mapStateToProps ( {categories,authedUser} ) {
+    categories = Object.values(categories)
+    return {
+        categories,
+        authedUser
+    } 
 }
     
 export default connect(mapStateToProps)(NewPost)

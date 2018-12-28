@@ -1,4 +1,5 @@
 import { api, headers } from './ConfigApi'
+import { generateUID } from './FormatItems'
 
 // GET /:category/posts (Get all of the posts for a particular category).
 export const getAllPostsCategory = (category) =>
@@ -20,23 +21,23 @@ export const getAllPosts = () =>
 // body - [String] 
 // author - [String] 
 // category - Any of the categories listed in categories.js. Feel free to extend this list as you desire.
-export const savePost = ( {id, timestamp, title, body, author, category}) =>
+export const savePost = ( { timestamp, title, body, author, category}) =>
   fetch(`${api}/posts`, {
     method: 'POST',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ id,timestamp,title,body,author,category })
+    body: JSON.stringify({ id: generateUID(),timestamp,title,body,author,category })
   }).then(res => res.json())
-    .then(data => data.postId)
+    .then(data => data)
     .catch(error => console.log(error))
 
 // GET /posts/:id	(Get the details of a single post).
 export const getPost = (id) =>
   fetch(`${api}/posts/${id}`, { headers })
     .then(res => res.json())
-    .then(data => data.post)
+    .then(data => data)
     .catch(error => console.log(error))
 
 // POST /posts/:id	(Used for voting on a post).	
@@ -56,7 +57,7 @@ export const votePost = (id,option) =>
 // PUT /posts/:id	(Edit the details of an existing post).	
 // title - [String] 
 // body - [String]
-export const editPost = (id,title,body) =>
+export const editPost = ({ id, title, body }) =>
   fetch(`${api}/posts/${id}`, {
     method: 'PUT',
     headers: {
@@ -65,7 +66,7 @@ export const editPost = (id,title,body) =>
     },
     body: JSON.stringify({ title,body })
   }).then(res => res.json())
-    .then(data => data.postId)
+    .then(data => data.post.id)
     .catch(error => console.log(error))
 
 // DELETE /posts/:id	Sets the deleted flag for a post to 'true'. 
@@ -75,6 +76,6 @@ export const deletePost = (id) =>
     method: 'DELETE',
     headers: headers
   }).then(res => res.json())
-    .then(data => data.postId)
+    .then(data => data.post.id)
     .catch(error => console.log(error)) 
 
