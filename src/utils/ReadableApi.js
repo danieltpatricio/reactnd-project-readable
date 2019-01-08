@@ -15,9 +15,12 @@ export const getInitialData = ()=>{
     }))
 }
 
-export const getInitPostPage = (id)=>{
+export const getInitialPostPage = (id)=>{
     return Promise.all([
-        getPost(id),
+        getPost(id)
+        .catch((error)=>{
+            console.warn('Error in getInitialPostPage:',error)
+        }),
         getAllCommentsPost(id),
     ]).then(([ post, comments ]) => ({
         post,
