@@ -1,22 +1,24 @@
-import { votePost, savePost } from '../utils/PostsApi'
+import { votePost, savePost, delPost, updatePost } from '../utils/PostsApi'
 import { showLoading, hideLoading } from 'react-redux-loading'
 
-export const RECIVE_POSTS = 'RECIVE_POSTS'
-export const RECIVE_POST = 'RECIVE_POST'
+export const RECEIVE_POSTS = 'RECEIVE_POSTS'
+export const RECEIVE_POST = 'RECEIVE_POST'
+export const DELETE_POST = 'DELETE_POST'
+export const EDIT_POST = 'EDIT_POST'
 export const ADD_POST = 'ADD_POST'
 export const TOGGLE_POST = 'TOGGLE_POST'
-export const RECIVE_POSTS_CATEGORY = 'RECIVE_POSTS_CATEGORY'
+export const RECEIVE_POSTS_CATEGORY = 'RECEIVE_POSTS_CATEGORY'
 
-export function recivePosts(posts) {
+export function receivePosts(posts) {
     return {
-        type: RECIVE_POSTS,
+        type: RECEIVE_POSTS,
         posts
     }
 }
 
-export function recivePost(post) {
+export function receivePost(post) {
     return {
-        type: RECIVE_POST,
+        type: RECEIVE_POST,
         post
     }
 }
@@ -56,4 +58,42 @@ export function handleTogglePost(info) {
         })
     }
 }
+
+function deletePost(id) {
+    return {
+        type: DELETE_POST,
+        id,
+    }
+}
+
+export function handleDeletePost(id) {
+    return (dispatch) =>{
+        dispatch(deletePost(id))
+        return delPost(id)
+        .catch((e)=>{
+            console.warn('Error in handleDeletePost:',e)
+            dispatch(deletePost(id))
+            alert('The was an error delete the post, Try again.')
+        })
+        
+    }
+}
  
+function editPost(post) {
+    return {
+        type: EDIT_POST,
+        post,
+    }
+}
+
+export function handleEditPost(post) {
+    return (dispatch) =>{
+        dispatch(editPost(post))
+        return updatePost(post)
+        .catch((e)=>{
+            console.warn('Error in handleEditPost:',e)
+            dispatch(editPost(post))            
+            alert('The was an error edit the post, Try again.')
+        })
+    }
+}
