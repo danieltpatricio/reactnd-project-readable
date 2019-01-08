@@ -6,6 +6,7 @@
     "@material-ui/core": "^3.8.1",
     "@material-ui/icons": "^3.0.1",
     "babel": "^6.23.0",
+    "firebaseui": "^3.5.1",
     "i": "^0.3.6",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
