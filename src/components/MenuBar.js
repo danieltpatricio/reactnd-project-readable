@@ -15,7 +15,7 @@ import { withStyles } from '@material-ui/core/styles'
 import SendIcon from '@material-ui/icons/Send'
 import { Home, ExpandLess, ExpandMore, ViewList} from '@material-ui/icons'
 import { NavLink } from 'react-router-dom'
-import { getIcons } from '../../utils/FormatItems'
+import { getIcons } from '../utils/FormatItems'
 
 
 const styles = theme => ({

@@ -186,3 +186,6 @@ img{
   display: block;
   margin: auto;
 }
+svg{
+  cursor: pointer;
+}

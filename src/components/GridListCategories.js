@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom'
 import { 
     Fab,  
 } from '@material-ui/core/'
-import react from '../assets/react.png'
-import udacity from '../assets/udacity.png'
-import redux from '../assets/redux.png'
+import react from '../../assets/react.png'
+import udacity from '../../assets/udacity.png'
+import redux from '../../assets/redux.png'
 
 
 function GridListCategories (props){

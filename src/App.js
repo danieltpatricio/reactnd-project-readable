@@ -1,15 +1,15 @@
 import React,{ Component, Fragment} from 'react'
 
 import { connect } from 'react-redux'
-import { handleInitialData } from '../actions/shared'
+import { handleInitialData } from './actions/shared'
 
 import './App.css'
-import HomePage from './HomePage/HomePage'
-import FloatButton from './FloatButton/FloatButton'
-import TopBar from './TopBar/TopBar'
-import NewPost from './NewPost/NewPost'
-import ListPosts from './ListPosts/ListPosts'
-import PostPage from './PostPage/PostPage'
+import HomePage from './components/HomePage/HomePage'
+import FloatButton from './components/FloatButton/FloatButton'
+import TopBar from './components/TopBar/TopBar'
+import NewPost from './components/NewPost/NewPost'
+import ListPosts from './components/ListPosts/ListPosts'
+import PostPage from './components/PostPage/PostPage'
 
 import LoadingBar from 'react-redux-loading'
 import { BrowserRouter,Route, Switch } from 'react-router-dom'

@@ -1,7 +1,7 @@
 import React,{ Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import { handleAddPost } from '../../actions/posts'
+import { handleAddPost } from '../actions/posts'
 import { TextField, FormControl, InputLabel, Select, OutlinedInput, Icon, Button  } from '@material-ui/core/';
 
 class NewPost extends Component{

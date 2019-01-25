@@ -8,8 +8,8 @@ import {
     DialogTitle,
 } from '@material-ui/core/'
 import DeleteIcon from '@material-ui/icons/Delete'
-import {  handleDeletePost } from '../../actions/posts'
-import { handleDeleteComment } from '../../actions/comments'
+import {  handleDeletePost } from '../actions/posts'
+import { handleDeleteComment } from '../actions/comments'
 import { connect } from 'react-redux'
 
 class DeleteAlert extends Component{

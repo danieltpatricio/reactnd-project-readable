@@ -9,8 +9,8 @@ import {
     TextField,
 } from '@material-ui/core/'
 import Create from '@material-ui/icons/Create'
-import { handleEditPost } from '../../actions/posts'
-import { handleEditComment } from '../../actions/comments'
+import { handleEditPost } from '../actions/posts'
+import { handleEditComment } from '../actions/comments'
 import { connect } from 'react-redux'
 
 
