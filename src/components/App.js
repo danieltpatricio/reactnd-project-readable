@@ -4,12 +4,12 @@ import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 
 import './App.css'
-import Main from './Main'
-import FloatButton from './FloatButton'
-import TopBar from './TopBar'
-import NewPost from './NewPost'
-import ListPosts from './ListPosts'
-import PostPage from './PostPage'
+import HomePage from './HomePage/HomePage'
+import FloatButton from './FloatButton/FloatButton'
+import TopBar from './TopBar/TopBar'
+import NewPost from './NewPost/NewPost'
+import ListPosts from './ListPosts/ListPosts'
+import PostPage from './PostPage/PostPage'
 
 import LoadingBar from 'react-redux-loading'
 import { BrowserRouter,Route, Switch } from 'react-router-dom'
@@ -25,21 +25,25 @@ class App extends Component {
     <div className="App">
     <BrowserRouter>
       <Fragment>
-        <LoadingBar/>
-        <TopBar title='Readable' />
-        <div className='categories-grid'>
-          {this.props.loading === true
-            ? null
-            : <div>
-                <Route path='/' exact component={Main}/>
-                <Switch>
-                  <Route path='/new' exact component={NewPost}/>
-                  <Route path='/:category/' exact component={ListPosts}/>
-                </Switch>
-                <Route path='/:category/:id' exact component={PostPage}/>
-                <FloatButton />
-              </div>
-          }
+        <LoadingBar Style={{ backgroundColor: 'blue'}}/>
+        <div className="content">
+          <div className="categories-grid">
+            {this.props.loading === true
+              ? null
+              : <div>
+                  <TopBar/>
+                  <div Style="margin-left: 250px;margin-right: 250px;">
+                    <Route path="/" exact component={HomePage}/>
+                    <Switch>
+                      <Route path="/new" exact component={NewPost}/>
+                      <Route path="/:category/" exact component={ListPosts}/>
+                    </Switch>
+                    <Route path="/:category/:id" exact component={PostPage}/>
+                  </div>
+                  <FloatButton />
+                </div>
+            }
+          </div>
         </div>
       </Fragment>
     </BrowserRouter>

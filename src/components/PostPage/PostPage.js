@@ -1,11 +1,14 @@
 import React,{ Component } from 'react'
 import { connect } from 'react-redux'
-import { handleInitPostPage } from '../actions/shared'
-import { handleAddComment } from '../actions/comments';
-import { formatDate } from '../utils/FormatItems'
-import { handleLike } from '../utils/Global'
-import { ListComments } from './ListComments'
-import { ListItem, TextField, ListItemText, Typography, IconButton} from '@material-ui/core/'
+import { handleInitPostPage } from '../../actions/shared'
+import { handleAddComment } from '../../actions/comments'
+import { formatDate } from '../../utils/FormatItems'
+import { handleLike } from '../../utils/Global'
+import ListComments from '../ListComments/ListComments'
+import { ListItem, TextField, ListItemText, Typography, IconButton, Icon, Button} from '@material-ui/core/'
+import erro404 from '../assets/404.png'
+import DeleteAlert from '../DeleteAlert/DeleteAlert'
+import EditAlert from '../EditAlert/EditAlert'
 
 class PostPage extends Component{
     state = {
@@ -15,20 +18,19 @@ class PostPage extends Component{
     componentDidMount(){
         const { dispatch } = this.props
         dispatch(handleInitPostPage(this.props.match.params.id))
-
     }
 
     handleSubmit = (e) =>{
         e.preventDefault()
         const { body } = this.state
+        const { id } = this.props.match.params
         const { dispatch,authedUser } = this.props
         dispatch(handleAddComment({
             timestamp: Date.now(),
             body,
             author: authedUser, 
-            parentId: this.props.match.params.id,
+            parentId: id,
         }))
-
     }
 
     handleChangeBody = (e) =>{
@@ -43,18 +45,17 @@ class PostPage extends Component{
     
     render(){
         let { body } = this.state
-        let { post,comments } = this.props
+        let { post, authedUser } = this.props
+        const { id } = this.props.match.params
         const postLeft = 1000 - body.length
-
         return post
         ? (
             <div>
-                <ListComments/>
                 <h2>{post ? post.title : ""}</h2>
                 <div className="post-box">
                     <ListItem> 
                         <div>
-                            <ListItemText secondary={'@'+post.author } primary={post.body}  />
+                            <ListItemText primary={post.body} secondary={'@'+post.author }/>
                             <Typography variant="body1">
                                 <i className="far fa-calendar-alt"></i> {formatDate(post.timestamp)}
                             </Typography>
@@ -68,12 +69,18 @@ class PostPage extends Component{
                                 <label className={post.voteScore !== 0 ? post.voteScore > 0 ?  "text-green" : "text-red" : "text-gray"}>{post.voteScore}</label>  
                             </div>
                         </div>
+                        {post.author === authedUser &&
+                            <div >
+                                <EditAlert type={'Post'} item={post} />
+                                <DeleteAlert type={'Post'} id={post.id}/>
+                            </div>
+                        }
                     </ListItem>
                 </div>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} className="right">
                     <TextField
-                        label="Body"
-                        name="Body"
+                        label="Comment"
+                        name="Comment"
                         value={body}
                         onChange={this.handleChangeBody}
                         multiline
@@ -82,23 +89,31 @@ class PostPage extends Component{
                         rowsMax="6"
                         variant="outlined"
                         margin="normal"
-                    
                     />
                     { (body !== '' &&  postLeft < 50 && postLeft > 0) &&
                         <span className="post-length">{postLeft}</span>
                     }
-
-                    <button 
+                    <Button 
+                    variant="contained" 
+                    color="primary" 
                     className="btn"
                     type="submit"
-                    disabled ={ body === '' }
-                    >
-                    Post
-                    </button>
+                    margin="normal"
+                    disabled ={ body === ''}>
+                        Send
+                        <Icon>send</Icon>
+                    </Button>
                 </form>
+                <ListComments id={id}/>
             </div>
         )
-        : (<h2>o post foi deletado ou nao existe</h2>)
+        : (
+            <div className="center">
+                <img src={erro404} alt="Erro 404 not found"/>
+                <h2>Oops... Page not found,</h2>
+                <h2>This post may have been deleted or does not exist.</h2>
+            </div>
+        )
     }
 }
 
@@ -106,34 +121,9 @@ function mapStateToProps({ authedUser, posts},props) {
     const { id } = props.match.params
     const post = Object.values(posts).filter((post) => post.id === id)[0]
     return {
-        loading: authedUser === null,
+        authedUser,
         post,
     }
 }       
 
 export default connect(mapStateToProps) (PostPage)
-
-// Os detalhes da postagem estão disponíveis em /:category/:post_id OK
-
-// A postagem é exibida com os seguintes itens:
-// 1) Título OK
-// 2) Corpo OK 
-// 3) Autor OK 
-// 4) Número de comentários
-// 5) Pontuação atual OK
-// 6) Mecanismo de voto para votar positiva ou negativamente o post OK 
-// 7) Botões ou links para que o post possa ser editado ou removido.
-
-// Comentários listados são exibidos com os seguintes itens:
-// 1) Autor
-// 2) Pontuação atual
-// 3) Mecanismo de voto para votar positiva ou negativamente o comentário
-
-// O mecanismo de voto funciona e exibe corretamente a nova pontuação de votos ao clicar para votar na postagem e nos comentários.
-
-// Todos os comentários de uma postagem são exibidos abaixo do corpo de texto da postagem.
-
-// Um mecanismo para a adição de novos comentários está visível na página de detalhes e funciona.
-
-// componentDidMount(){
-// }

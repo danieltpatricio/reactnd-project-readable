@@ -1,28 +1,39 @@
 import React,{ Component } from 'react'
 import { connect } from 'react-redux'
-import { handleAddPost } from '../actions/posts'
-import { TextField, FormControl, InputLabel, Select, OutlinedInput  } from '@material-ui/core/';
+import { Redirect } from 'react-router-dom'
+import { handleAddPost } from '../../actions/posts'
+import { TextField, FormControl, InputLabel, Select, OutlinedInput, Icon, Button  } from '@material-ui/core/';
 
 class NewPost extends Component{
     state = {
         body: '',
         title: '',
-        category: ''
+        category: '',
+        toHome: false,
     }
 
     handleChangeCategory = (e) =>{
         const category = e.target.value
-        this.setState((c) => c.category = category)
+        this.setState((c) =>{
+            c.category = category
+            return c
+        })
     }
 
     handleChangeBody = (e) =>{
         const body = e.target.value
-        body.length <= 1000 && this.setState((c) => c.body = body)
+        body.length <= 1000 && this.setState((c) => {
+            c.body = body
+            return c
+        })
     }
 
     handleChangeTitle = (e) =>{
         const title = e.target.value
-        this.setState((c)=> c.title = title)
+        this.setState((c)=>{
+            c.title = title
+            return c
+        })
     }
 
     handleSubmit = (e) =>{
@@ -40,15 +51,20 @@ class NewPost extends Component{
         this.setState({
             body: '',
             title: '',
-            category: ''
+            category: '',
+            toHome:true,
         })
 
     }
 
     render(){
-        let { body, title, category } = this.state
+        let { body, title, category, toHome } = this.state
         let  categories   = this.props.categories
         const postLeft = 1000 - body.length
+
+        if (toHome === true ){
+            return <Redirect to='/' />
+        }
 
         return(
             <div>
@@ -99,8 +115,8 @@ class NewPost extends Component{
                             value={body}
                             onChange={this.handleChangeBody}
                             multiline
-                            rows="6"
-                            rowsMax="6"
+                            rows="8"
+                            rowsMax="8"
                             variant="outlined"
                             margin="normal"
                         
@@ -109,21 +125,25 @@ class NewPost extends Component{
                             <span className="post-length">{postLeft}</span>
                         }
                     </FormControl> 
-
-                    <button 
-                    className="btn"
-                    type="submit"
-                    disabled ={ body === '' || category === '' || title === ''}
-                    >
-                    Post
-                    </button>
+                    <div className="right">
+                        <Button 
+                        variant="contained" 
+                        color="primary" 
+                        className="btn"
+                        type="submit"
+                        margin="normal"
+                        disabled ={ body === '' || category === '' || title === ''}>
+                            Send
+                            <Icon>send</Icon>
+                        </Button>
+                    </div>
                 </form>
             </div>
         )
     }
 }
 
-function mapStateToProps ( {categories,authedUser} ) {
+function mapStateToProps ( { categories, authedUser} ) {
     categories = Object.values(categories)
     return {
         categories,

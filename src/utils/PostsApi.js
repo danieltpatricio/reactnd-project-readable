@@ -21,14 +21,14 @@ export const getAllPosts = () =>
 // body - [String] 
 // author - [String] 
 // category - Any of the categories listed in categories.js. Feel free to extend this list as you desire.
-export const savePost = ( { timestamp, title, body, author, category}) =>
+export const savePost = ( post) =>
   fetch(`${api}/posts`, {
     method: 'POST',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ id: generateUID(),timestamp,title,body,author,category })
+    body: JSON.stringify({ ...post, id: generateUID()})
   }).then(res => res.json())
     .then(data => data)
     .catch(error => console.log(error))
@@ -37,7 +37,7 @@ export const savePost = ( { timestamp, title, body, author, category}) =>
 export const getPost = (id) =>
   fetch(`${api}/posts/${id}`, { headers })
     .then(res => res.json())
-    .then(data => data)
+    .then(data => data.error ? console.log(data.error) : data)
     .catch(error => console.log(error))
 
 // POST /posts/:id	(Used for voting on a post).	
@@ -57,7 +57,7 @@ export const votePost = (id,option) =>
 // PUT /posts/:id	(Edit the details of an existing post).	
 // title - [String] 
 // body - [String]
-export const editPost = ({ id, title, body }) =>
+export const updatePost = ({ id, title, body }) =>
   fetch(`${api}/posts/${id}`, {
     method: 'PUT',
     headers: {
@@ -66,16 +66,16 @@ export const editPost = ({ id, title, body }) =>
     },
     body: JSON.stringify({ title,body })
   }).then(res => res.json())
-    .then(data => data.post.id)
+    .then(data => data)
     .catch(error => console.log(error))
 
 // DELETE /posts/:id	Sets the deleted flag for a post to 'true'. 
 // Sets the parentDeleted flag for all child comments to 'true'.
-export const deletePost = (id) =>
+export const delPost = (id) =>
   fetch(`${api}/posts/${id}`, {
     method: 'DELETE',
     headers: headers
   }).then(res => res.json())
-    .then(data => data.post.id)
+    .then(data => data)
     .catch(error => console.log(error)) 
 

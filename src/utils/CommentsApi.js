@@ -14,14 +14,14 @@ export const getAllCommentsPost = (id) =>
 // body - [String] 
 // author - [String] 
 // parentId - Should match a post id in the database.
-export const saveComment = ({ timestamp, body, author, parentId }) =>
+export const saveComment = (comment) =>
   fetch(`${api}/comments`, {
     method: 'POST',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ id: generateUID(),timestamp,body,author,parentId })
+    body: JSON.stringify({ ...comment, id: generateUID() })
   }).then(res => res.json())
     .then(data => data)
     .catch(error => console.log(error))
@@ -50,7 +50,7 @@ export const voteComment = (id,option) =>
 // PUT /comments/:id	(Edit the details of an existing comment).	
 // timestamp - timestamp. Get this however you want. 
 // body - [String]
-export const editComment = (id,timestamp,body) =>
+export const updateComment = ({id,timestamp,body}) =>
   fetch(`${api}/comments/${id}`, {
     method: 'PUT',
     headers: {
@@ -59,14 +59,15 @@ export const editComment = (id,timestamp,body) =>
     },
     body: JSON.stringify({ timestamp,body })
   }).then(res => res.json())
-    .catch(error => console.log(error))
+  .then(data => data)
+  .catch(error => console.log(error))
 
 // DELETE /comments/:id	(Sets a comment's deleted flag to true).
-export const deleteComment = (id) =>
+export const delComment = (id) =>
   fetch(`${api}/comments/${id}`, {
     method: 'DELETE', 
     headers
   }).then(res => res.json())
-  .then(data => data.commentId)
-    .catch(error => console.log(error))
+  .then(data => data)
+  .catch(error => console.log(error))
 

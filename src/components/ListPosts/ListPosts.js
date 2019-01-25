@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { List, Tabs, Tab, ListItem, ListItemText } from '@material-ui/core/'
-import Post  from './Post'
-import { NavLink } from 'react-router-dom'
+import { List, Tabs, Tab } from '@material-ui/core/'
+import Post  from '../Post/Post'
 
 
 class ListPosts extends Component{
@@ -30,15 +29,12 @@ class ListPosts extends Component{
 		let { value } = this.state
 		let  posts  =  this.sortList(this.props.posts)
 		return(
-	  		<div>
-				<div>
-					<h2>{this.props.match ?  this.props.match.params.category  : "Posts" }:</h2>
-				</div>
+	  		<div className="grid-posts">
 				<Tabs 
 				indicatorColor="primary" 
 				value={value} 
 				onChange={this.handleChange} 
-				scrollable 
+				variant="scrollable"
 				scrollButtons="off"
 				>
 					<Tab icon={<i className="far fa-calendar-alt fa-2x "></i>} />
@@ -47,12 +43,9 @@ class ListPosts extends Component{
 				<List className="list-posts">
 		  		{ 
 					posts.map(item => (
-						<NavLink to={`/${item.category}/${item.id}`} key={item.id}>
-							<Post item={item}/>
-						</NavLink>
+						<Post item={item} key={item.id}/>
 					))
 		  		}
-				<ListItem><ListItemText primary={"Total : " +posts.length}/></ListItem> 
 				</List>
 			</div>
 		)
@@ -61,6 +54,7 @@ class ListPosts extends Component{
 
 function mapStateToProps ( { posts },props ) {
 	posts = Object.values(posts)
+	
 	if (props.match) (posts = posts.filter((post)=>props.match.params.category === post.category) )
 	return {
 		posts
