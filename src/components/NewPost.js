@@ -2,7 +2,16 @@ import React,{ Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { handleAddPost } from '../actions/posts'
-import { TextField, FormControl, InputLabel, Select, OutlinedInput, Icon, Button  } from '@material-ui/core/';
+import { 
+    TextField,
+    FormControl,
+    InputLabel,
+    Select,
+    OutlinedInput,
+    Icon,
+    Button,
+    Divider  
+} from '@material-ui/core/';
 
 class NewPost extends Component{
     state = {
@@ -68,8 +77,9 @@ class NewPost extends Component{
 
         return(
             <div>
-                <h2>Compose New Post:</h2>
-                <form onSubmit={this.handleSubmit}>  
+                <h2>Add Post:</h2>
+                <Divider/>
+                <form onSubmit={this.handleSubmit} className="margin-top">  
                     <FormControl variant="outlined" className="select-category">
                         <InputLabel
                             ref={ref => {
@@ -125,7 +135,7 @@ class NewPost extends Component{
                             <span className="post-length">{postLeft}</span>
                         }
                     </FormControl> 
-                    <div className="right">
+                    <div className="center">
                         <Button 
                         variant="contained" 
                         color="primary" 

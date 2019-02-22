@@ -1,5 +1,5 @@
 export const authedUser = () =>{
-    return 'daniel_patricio'
+    return 'user_' + (localStorage.token ? localStorage.token : Math.random().toString(36).substr(-8))
 }
 
 

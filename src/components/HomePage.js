@@ -1,6 +1,6 @@
 import React from 'react'
-import GridListCategories from '../GridListCategories/GridListCategories'
-import ListPosts from '../ListPosts/ListPosts'
+import GridListCategories from './GridListCategories'
+import ListPosts from './ListPosts'
 
 export default function HomePage (){ 
     return(

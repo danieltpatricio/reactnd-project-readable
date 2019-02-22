@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { 
     Button,
     Dialog,
@@ -7,14 +7,11 @@ import {
     DialogContentText,
     DialogTitle,
     TextField,
-} from '@material-ui/core/'
-import Create from '@material-ui/icons/Create'
-import { handleEditPost } from '../actions/posts'
-import { handleEditComment } from '../actions/comments'
-import { connect } from 'react-redux'
-
-
-
+} from '@material-ui/core/';
+import Create from '@material-ui/icons/Create';
+import { handleEditPost } from '../actions/posts';
+import { handleEditComment } from '../actions/comments';
+import { connect } from 'react-redux';
 
 class EditAlert extends Component{
     state ={
@@ -44,18 +41,11 @@ class EditAlert extends Component{
     handleOpen = (e) => {
         e.preventDefault()
         this.setState((c)=>{
-            c.open = true
+            c.open = !c.open
             return c
         });
     };
     
-    handleClose = (e) => {
-        e.preventDefault()
-        this.setState((c)=>{
-            c.open = false
-            return c
-        });
-    };
 
     handleEdit = (e)=>{
         e.preventDefault()
@@ -78,7 +68,7 @@ class EditAlert extends Component{
             }
             dispatch(handleEditComment(comment))
         }
-        this.handleClose(e)
+        this.handleOpen(e)
     }
 
     render(){    
@@ -90,7 +80,7 @@ class EditAlert extends Component{
                 <Dialog
                 open={open}
                 onClick={(e)=>e.preventDefault()}
-                onClose={this.handleClose}
+                onClose={this.handleOpen}
                 aria-labelledby="dialog-title">
                     <DialogTitle id="dialog-title">Edit {type}</DialogTitle>
                     <DialogContent>
@@ -122,7 +112,7 @@ class EditAlert extends Component{
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.handleOpen} color="primary">
                         Cancel
                         </Button>
                         <Button onClick={(e)=>this.handleEdit(e)}  autoFocus>

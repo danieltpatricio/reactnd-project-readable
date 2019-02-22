@@ -4,11 +4,21 @@ import { handleInitPostPage } from '../actions/shared'
 import { handleAddComment } from '../actions/comments'
 import { formatDate } from '../utils/FormatItems'
 import { handleLike } from '../utils/Global'
-import ListComments from './ListComments/ListComments'
-import { ListItem, TextField, ListItemText, Typography, IconButton, Icon, Button} from '@material-ui/core/'
-import erro404 from '../../assets/404.png'
-import DeleteAlert from '../DeleteAlert/DeleteAlert'
-import EditAlert from '../EditAlert/EditAlert'
+import ListComments from './ListComments'
+import { 
+    ListItem,
+    TextField,
+    ListItemText,
+    Typography,
+    IconButton,
+    Icon,
+    Button,
+    Divider,
+    Paper
+} from '@material-ui/core/'
+import erro404 from '../assets/404.png'
+import DeleteAlert from './DeleteAlert'
+import EditAlert from './EditAlert'
 
 class PostPage extends Component{
     state = {
@@ -31,6 +41,7 @@ class PostPage extends Component{
             author: authedUser, 
             parentId: id,
         }))
+        this.setState({body:''})
     }
 
     handleChangeBody = (e) =>{
@@ -52,32 +63,35 @@ class PostPage extends Component{
         ? (
             <div>
                 <h2>{post ? post.title : ""}</h2>
-                <div className="post-box">
-                    <ListItem> 
-                        <div>
-                            <ListItemText primary={post.body} secondary={'@'+post.author }/>
-                            <Typography variant="body1">
-                                <i className="far fa-calendar-alt"></i> {formatDate(post.timestamp)}
-                            </Typography>
+                <Divider/>
+                <div className="margin-top">
+                    <Paper>
+                        <ListItem> 
                             <div>
-                                <IconButton aria-label="Open drawer" onClick={(e) =>this.handleLikeLocal(e,post.id,'upVote')} >
-                                    <i className="far fa-thumbs-up"></i>
-                                </IconButton>
-                                <IconButton aria-label="Open drawer" onClick={(e) =>this.handleLikeLocal(e,post.id,'downVote')} >
-                                    <i className="far fa-thumbs-down"></i>
-                                </IconButton>
-                                <label className={post.voteScore !== 0 ? post.voteScore > 0 ?  "text-green" : "text-red" : "text-gray"}>{post.voteScore}</label>  
+                                <ListItemText primary={post.body} secondary={'@'+post.author }/>
+                                <Typography variant="body1">
+                                    <i className="far fa-calendar-alt"></i> {formatDate(post.timestamp)}
+                                </Typography>
+                                <div>
+                                    <IconButton aria-label="Open drawer" onClick={(e) =>this.handleLikeLocal(e,post.id,'upVote')} >
+                                        <i className="far fa-thumbs-up"></i>
+                                    </IconButton>
+                                    <IconButton aria-label="Open drawer" onClick={(e) =>this.handleLikeLocal(e,post.id,'downVote')} >
+                                        <i className="far fa-thumbs-down"></i>
+                                    </IconButton>
+                                    <label className={post.voteScore !== 0 ? post.voteScore > 0 ?  "text-green" : "text-red" : "text-gray"}>{post.voteScore}</label>  
+                                </div>
                             </div>
-                        </div>
-                        {post.author === authedUser &&
-                            <div >
-                                <EditAlert type={'Post'} item={post} />
-                                <DeleteAlert type={'Post'} id={post.id}/>
-                            </div>
-                        }
-                    </ListItem>
+                            {post.author === authedUser &&
+                                <div >
+                                    <EditAlert type={'Post'} item={post} />
+                                    <DeleteAlert type={'Post'} id={post.id}/>
+                                </div>
+                            }
+                        </ListItem>
+                    </Paper>
                 </div>
-                <form onSubmit={this.handleSubmit} className="right">
+                <form onSubmit={this.handleSubmit} className="center margin-top">
                     <TextField
                         label="Comment"
                         name="Comment"

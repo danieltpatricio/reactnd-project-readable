@@ -1,20 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from '../App'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import  reducer  from '../reducers'
-import middlaware from '../middleware'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from '../App';
+import { Provider } from 'react-redux';
+import store from './__helper.test';
 
-const store = createStore(reducer,middlaware) 
 
-it('renders without crashing', () => {
+it('renders App without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(
-    <Provider store={store}>
-        <App />
+    <Provider store>
+      <App />
     </Provider>,
     div
-  )
+  );
   ReactDOM.unmountComponentAtNode(div);
 });

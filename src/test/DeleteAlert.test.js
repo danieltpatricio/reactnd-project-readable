@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import DeleteAlert from './DeleteAlert'
+import DeleteAlert from '../components/DeleteAlert'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import  reducer  from '../reducers'

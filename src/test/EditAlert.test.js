@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import EditAlert from './EditAlert'
+import EditAlert from '../components/EditAlert'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import  reducer  from '../reducers'

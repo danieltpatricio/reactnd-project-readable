@@ -17,6 +17,11 @@
   color: #61dafb;
 }
 
+.content{
+  margin-top: 100px;
+  margin-left: 25%;
+  margin-right: 25%;
+}
 
 
 /* Top bar */
@@ -91,7 +96,7 @@ a {
 }
 
 .select-category{
-  width: 15vh;
+  width: 30vh;
 }
 
 .post-box{
@@ -138,6 +143,11 @@ img{
   margin: 5px;
 }
 
+.comment{
+  background-color: white;
+  margin: 5px;
+}
+
 .card {
   color: gray;
   width: 180px;
@@ -180,6 +190,7 @@ img{
 
 .category{
   margin: 10px;
+  color: white;
 }
 
 .title{
@@ -188,4 +199,17 @@ img{
 }
 svg{
   cursor: pointer;
+}
+
+.margin-top{
+  margin-top:20px;
+}
+
+.user-btn{
+  right: 20px;
+  position: fixed;
+}
+
+button{
+  background-color: white;
 }

@@ -1,7 +1,7 @@
-import React from 'react'
-import {Fab, Tooltip} from '@material-ui/core/'
-import AddIcon from '@material-ui/icons/Add'
-import { NavLink } from 'react-router-dom'
+import React from 'react';
+import {Fab, Tooltip} from '@material-ui/core/';
+import AddIcon from '@material-ui/icons/Add';
+import { NavLink } from 'react-router-dom';
 
 export default function FloatButton(props){
     return(

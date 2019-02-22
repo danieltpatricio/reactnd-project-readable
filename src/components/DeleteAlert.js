@@ -1,4 +1,4 @@
-import React,{ Component } from 'react'
+import React,{ Component } from 'react';
 import { 
     Button,
     Dialog,
@@ -6,10 +6,10 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
-} from '@material-ui/core/'
-import DeleteIcon from '@material-ui/icons/Delete'
-import {  handleDeletePost } from '../actions/posts'
-import { handleDeleteComment } from '../actions/comments'
+} from '@material-ui/core/';
+import DeleteIcon from '@material-ui/icons/Delete';
+import {  handleDeletePost } from '../actions/posts';
+import { handleDeleteComment } from '../actions/comments';
 import { connect } from 'react-redux'
 
 class DeleteAlert extends Component{
@@ -19,12 +19,7 @@ class DeleteAlert extends Component{
     
     handleOpen = (e) => {
         e.preventDefault()
-        this.setState({open:true});
-    };
-    
-    handleClose = (e) => {
-        e.preventDefault()
-        this.setState({open:false});
+        this.setState({open:!this.state.open});
     };
 
     handleDelete = (e,id)=>{
@@ -34,7 +29,7 @@ class DeleteAlert extends Component{
             dispatch(handleDeletePost(id))
         if(type === 'Comment')
             dispatch(handleDeleteComment(id))
-        this.handleClose(e)
+        this.handleOpen(e)
     }
 
     render(){
@@ -45,7 +40,7 @@ class DeleteAlert extends Component{
                 <DeleteIcon className="icon-delete text-gray" onClick={this.handleOpen} />
                 <Dialog
                 open={open}
-                onClose={this.handleClose}
+                onClose={this.handleOpen}
                 onClick={(e)=>e.preventDefault()}
                 aria-labelledby="dialog-title">
                     <DialogTitle id="dialog-title">Delete {type}</DialogTitle>
@@ -55,7 +50,7 @@ class DeleteAlert extends Component{
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.handleOpen} color="primary">
                         Cancel
                         </Button>
                         <Button onClick={(e)=>this.handleDelete(e,id)} autoFocus>

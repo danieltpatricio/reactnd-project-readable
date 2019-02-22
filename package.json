@@ -9,6 +9,7 @@
     "babel": "^6.23.0",
     "firebaseui": "^3.5.1",
     "i": "^0.3.6",
+    "nightmare": "^3.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.6.3",

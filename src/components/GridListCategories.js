@@ -1,28 +1,12 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
-import { 
-    Fab,  
-} from '@material-ui/core/'
-import react from '../../assets/react.png'
-import udacity from '../../assets/udacity.png'
-import redux from '../../assets/redux.png'
-
+import React from 'react';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { Fab } from '@material-ui/core/';
+import { getIcons } from '../utils/FormatItems';
 
 function GridListCategories (props){
     let categories = props.categories
-    let setImages =(category)=>{
-        switch (category){
-            case 'react':
-                return react
-            case 'redux':
-                return redux
-            case 'udacity':
-                return udacity
-            default:
-                return "http://energiaautomacao.com.br/wp-content/uploads/2018/04/sem-imagem-7.jpg"
-        }
-    }
+
     return(
         <div className="categories">
             {
@@ -33,12 +17,9 @@ function GridListCategories (props){
                         size="medium"
                         aria-label={category.name}
                         className="category"
+                        color="primary"
                         >
-                        <img 
-                            src={ setImages(category.name) } 
-                            alt={category.name} 
-                            className="categories-list-icons"
-                        /> 
+                        {getIcons(category.name)}
                         {category.name}
                         </Fab>
                     </NavLink>
