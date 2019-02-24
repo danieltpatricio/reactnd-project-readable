@@ -5,6 +5,8 @@ import {
     RECEIVE_POST,
     DELETE_POST,
     EDIT_POST,
+    ADD_COMMENT_COUNT,
+    SUB_COMMENT_COUNT,
 } from '../actions/posts'
 import { formatObject } from '../utils/FormatItems'
 
@@ -42,6 +44,22 @@ export default function posts (state = [],action){
             }
         case DELETE_POST:
             return formatObject(Object.values(state).filter(item => item.id !== action.id))
+        case ADD_COMMENT_COUNT:
+            return {
+                ...state,
+                [action.id]:{
+                    ...state[action.id],
+                    commentCount:(state[action.id].commentCount+1)
+                }
+            }
+        case SUB_COMMENT_COUNT:
+            return {
+                ...state,
+                [action.id]:{
+                    ...state[action.id],
+                    commentCount:(state[action.id].commentCount-1)
+                }
+            }
         default:
             return state
     }

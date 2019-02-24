@@ -12,7 +12,7 @@ class ListComments extends Component{
 		this.setState({value})
 	}
 
-	sortList = (comments) =>{
+	sortList = () =>{
 		switch (this.state.value){
 			case 0 :
 				return this.props.comments.sort((a,b)=> b.timestamp - a.timestamp)

@@ -1,10 +1,11 @@
-import { saveComment, voteComment, delComment, updateComment } from '../utils/CommentsApi'
+import { saveComment, voteComment, delComment, updateComment } from '../utils/CommentsApi';
+import { addCommentCount } from './posts';
 
-export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS'
-export const ADD_COMMENT = 'ADD_COMMENT'
-export const EDIT_COMMENT = 'EDIT_COMMENT'
-export const TOGGLE_COMMENT = 'TOGGLE_COMMENT'
-export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const EDIT_COMMENT = 'EDIT_COMMENT';
+export const TOGGLE_COMMENT = 'TOGGLE_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
 
 export function receiveComments(comments) {
     return {
@@ -25,6 +26,7 @@ export function handleAddComment(comment){
     return (dispatch)=>{
         return saveComment(comment)
         .then( (comment) => dispatch(addComment(comment)) )
+        .then( ()=>  dispatch(addCommentCount(comment.parentId)))
     }
 }
 

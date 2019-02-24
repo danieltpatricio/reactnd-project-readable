@@ -1,10 +1,10 @@
-import React,{ Component } from 'react'
-import { connect } from 'react-redux'
-import { handleInitPostPage } from '../actions/shared'
-import { handleAddComment } from '../actions/comments'
-import { formatDate } from '../utils/FormatItems'
-import { handleLike } from '../utils/Global'
-import ListComments from './ListComments'
+import React,{ Component } from 'react';
+import { connect } from 'react-redux';
+import { handleInitPostPage } from '../actions/shared';
+import { handleAddComment } from '../actions/comments';
+import { formatDate } from '../utils/FormatItems';
+import { handleLike } from '../utils/Global';
+import ListComments from './ListComments';
 import { 
     ListItem,
     TextField,
@@ -15,10 +15,10 @@ import {
     Button,
     Divider,
     Paper
-} from '@material-ui/core/'
-import erro404 from '../assets/404.png'
-import DeleteAlert from './DeleteAlert'
-import EditAlert from './EditAlert'
+} from '@material-ui/core/';
+import erro404 from '../assets/404.png';
+import DeleteAlert from './DeleteAlert';
+import EditAlert from './EditAlert';
 
 class PostPage extends Component{
     state = {
@@ -70,7 +70,10 @@ class PostPage extends Component{
                             <div>
                                 <ListItemText primary={post.body} secondary={'@'+post.author }/>
                                 <Typography variant="body1">
-                                    <i className="far fa-calendar-alt"></i> {formatDate(post.timestamp)}
+                                    <i className="far fa-calendar-alt"></i> 
+                                    {formatDate(post.timestamp)}
+                                    <br/>
+                                    <i className="fas fa-reply"></i> {post.commentCount} comments
                                 </Typography>
                                 <div>
                                     <IconButton aria-label="Open drawer" onClick={(e) =>this.handleLikeLocal(e,post.id,'upVote')} >

@@ -1,13 +1,15 @@
-import { votePost, savePost, delPost, updatePost } from '../utils/PostsApi'
-import { showLoading, hideLoading } from 'react-redux-loading'
+import { votePost, savePost, delPost, updatePost } from '../utils/PostsApi';
+import { showLoading, hideLoading } from 'react-redux-loading';
 
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const RECEIVE_POST = 'RECEIVE_POST'
-export const DELETE_POST = 'DELETE_POST'
-export const EDIT_POST = 'EDIT_POST'
-export const ADD_POST = 'ADD_POST'
-export const TOGGLE_POST = 'TOGGLE_POST'
-export const RECEIVE_POSTS_CATEGORY = 'RECEIVE_POSTS_CATEGORY'
+export const RECEIVE_POSTS = 'RECEIVE_POSTS';
+export const RECEIVE_POST = 'RECEIVE_POST';
+export const DELETE_POST = 'DELETE_POST';
+export const EDIT_POST = 'EDIT_POST';
+export const ADD_POST = 'ADD_POST';
+export const TOGGLE_POST = 'TOGGLE_POST';
+export const RECEIVE_POSTS_CATEGORY = 'RECEIVE_POSTS_CATEGORY';
+export const ADD_COMMENT_COUNT = 'ADD_COMMENT_COUNT';
+export const SUB_COMMENT_COUNT = 'SUB_COMMENT_COUNT';
 
 export function receivePosts(posts) {
     return {
@@ -20,6 +22,20 @@ export function receivePost(post) {
     return {
         type: RECEIVE_POST,
         post
+    }
+}
+
+export function addCommentCount(id){
+    return {
+        type: ADD_COMMENT_COUNT,
+        id
+    }
+}
+
+export function subCommentCount(id){
+    return {
+        type: SUB_COMMENT_COUNT,
+        id
     }
 }
 

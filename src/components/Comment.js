@@ -39,7 +39,7 @@ class Comment extends Component{
                             {item.author === authedUser &&
                                 <div >
                                     <EditAlert type={'Comment'} item={item} />
-                                    <DeleteAlert type={'Comment'} id={item.id}/>
+                                    <DeleteAlert type={'Comment'} id={item.id} parentId={item.parentId}/>
                                 </div>
                             }
                         </div>

@@ -8,7 +8,7 @@ import {
     DialogTitle,
 } from '@material-ui/core/';
 import DeleteIcon from '@material-ui/icons/Delete';
-import {  handleDeletePost } from '../actions/posts';
+import {  handleDeletePost, subCommentCount } from '../actions/posts';
 import { handleDeleteComment } from '../actions/comments';
 import { connect } from 'react-redux'
 
@@ -29,6 +29,7 @@ class DeleteAlert extends Component{
             dispatch(handleDeletePost(id))
         if(type === 'Comment')
             dispatch(handleDeleteComment(id))
+            dispatch(subCommentCount(this.props.parentId))
         this.handleOpen(e)
     }
 
