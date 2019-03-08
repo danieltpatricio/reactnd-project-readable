@@ -1,6 +1,15 @@
+## Description
+
+For the project Reading, evaluation and content of an article. Your app is what users post to their pre-defined areas, comment on their posts and messages from other users, and vote on posts and comments. Users can edit and delete posts and comments. Start installing the dependencies with `npm install`:
+
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm install`
+
+Install the dependencies.<br>
+You will also see progress in the console.
 
 ### `npm start`
 
