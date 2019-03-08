@@ -155,6 +155,7 @@ function mapStateToProps({ authedUser, posts }, props) {
   const post = Object.values(posts).filter(post => post.id === id)[0];
   return {
     authedUser,
+    id,
     post
   };
 }
